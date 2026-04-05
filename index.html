@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HARIHARAN | SAP MM Consultant</title>
+  <link rel="icon" type="image/png" href="HARI5.png">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --black: #080808;
+      --dark: #111111;
+      --dark2: #181818;
+      --dark3: #202020;
+      --white: #ffffff;
+      --off-white: #f0ede8;
+      --gray: #888888;
+      --gray2: #444444;
+      --orange: #FF6B00;
+      --orange-dim: rgba(255,107,0,0.1);
+      --yellow: #F5C518;
+      --yellow-dim: rgba(245,197,24,0.1);
+      --green: #22C55E;
+      --green-dim: rgba(34,197,94,0.1);
+      --border: rgba(255,255,255,0.08);
+      --border-strong: rgba(255,255,255,0.14);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; cursor: none; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.016) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.016) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none; z-index: 0;
+    }
+
+    #cd { width: 8px; height: 8px; background: var(--orange); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: transform 0.12s, background 0.2s; }
+    #co { width: 34px; height: 34px; border: 1.5px solid rgba(255,107,0,0.55); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99998; transform: translate(-50%,-50%); transition: all 0.13s; }
+    #cd.hov { background: var(--yellow); transform: translate(-50%,-50%) scale(2.2); }
+    #co.hov { transform: translate(-50%,-50%) scale(1.45); border-color: var(--yellow); }
+
+    #pb { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--orange), var(--yellow)); z-index: 10001; width: 0%; }
+
+    /* LOADER */
+    #ldr { position: fixed; inset: 0; background: var(--black); z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.7s, visibility 0.7s; }
+    #ldr.hide { opacity: 0; visibility: hidden; }
+    .ldr-logo { font-family: 'Bebas Neue', sans-serif; font-size: 54px; letter-spacing: 12px; color: var(--white); margin-bottom: 6px; }
+    .ldr-logo span { color: var(--orange); }
+    .ldr-sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--gray); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 48px; }
+    .ldr-track { width: 260px; height: 1px; background: var(--dark3); position: relative; overflow: hidden; }
+    .ldr-fill { position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(90deg, var(--orange), var(--yellow)); animation: ldr-a 2s ease-in-out forwards; }
+    @keyframes ldr-a { from { width: 0 } to { width: 100% } }
+    .ldr-pct { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--gray); margin-top: 10px; text-align: right; letter-spacing: 2px; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; width: 100%; padding: 0 5%; height: 62px; display: flex; justify-content: space-between; align-items: center; z-index: 900; background: rgba(8,8,8,0.93); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 4px; color: var(--white); text-decoration: none; }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 4px; list-style: none; align-items: center; }
+    .nav-links a { font-size: 10px; font-weight: 600; color: var(--gray); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 11px; border-radius: 2px; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active { color: var(--orange); }
+    .nav-cta { background: var(--orange) !important; color: var(--black) !important; font-weight: 700 !important; }
+    .nav-cta:hover { background: var(--yellow) !important; color: var(--black) !important; }
+    .nav-tog { display: none; background: none; border: none; color: var(--white); font-size: 20px; cursor: pointer; }
+
+    section { position: relative; z-index: 1; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+
+    .section-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; color: var(--orange); display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .section-label::after { content: ''; flex: 1; max-width: 56px; height: 1px; background: var(--orange); }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px, 7vw, 80px); letter-spacing: 4px; line-height: 0.95; color: var(--white); }
+    .section-title span { color: var(--orange); }
+    .sh { margin-bottom: 64px; }
+    .sh-inner { display: flex; align-items: flex-end; gap: 28px; }
+    .sh-rule { flex: 1; height: 1px; background: var(--border-strong); margin-bottom: 12px; }
+    .sh-num { font-family: 'Bebas Neue', sans-serif; font-size: 110px; line-height: 1; color: rgba(255,255,255,0.035); letter-spacing: 0; user-select: none; }
+
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: all 0.22s; border: none; font-family: 'DM Sans', sans-serif; border-radius: 2px; }
+    .btn-p { background: var(--orange); color: var(--black); }
+    .btn-p:hover { background: var(--yellow); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,107,0,0.28); }
+    .btn-o { background: transparent; color: var(--white); border: 1px solid var(--border-strong); }
+    .btn-o:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+    .btn-w { background: var(--white); color: var(--black); font-weight: 700; }
+    .btn-w:hover { background: var(--off-white); transform: translateY(-2px); }
+
+    .tag { display: inline-flex; align-items: center; gap: 6px; padding: 5px 13px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 2px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gray); transition: all 0.2s; }
+    .tag:hover { border-color: var(--orange); color: var(--orange); background: var(--orange-dim); }
+    .tag i { font-size: 11px; }
+
+    /* HERO */
+    #home { min-height: 100vh; display: flex; align-items: center; padding-top: 62px; position: relative; }
+    .hero-accent { position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--orange) 0%, var(--yellow) 40%, transparent 100%); }
+    .hero-wrap { display: grid; grid-template-columns: 1fr 400px; gap: 72px; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; padding: 80px 5%; }
+    .hero-available { display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--green); margin-bottom: 22px; text-transform: uppercase; }
+    .hero-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse-g 2s infinite; }
+    @keyframes pulse-g { 0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); } 50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); } }
+    .hero-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(58px, 9vw, 108px); letter-spacing: 4px; line-height: 0.9; margin-bottom: 6px; }
+    .hero-name .accent { color: var(--orange); }
+    .hero-divider { width: 72px; height: 2px; background: linear-gradient(90deg, var(--orange), var(--yellow)); margin: 18px 0; }
+    .hero-role { font-size: clamp(15px, 2vw, 19px); color: var(--gray); margin-bottom: 8px; font-weight: 300; letter-spacing: 0.5px; }
+    .hero-role span { color: var(--white); font-weight: 600; }
+    .hero-desc { font-size: 15px; line-height: 1.9; color: var(--gray); margin-bottom: 32px; max-width: 500px; }
+    .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 44px; }
+    .hero-stats { display: flex; border-top: 1px solid var(--border); padding-top: 28px; }
+    .hstat { padding-right: 36px; border-right: 1px solid var(--border); margin-right: 36px; }
+    .hstat:last-child { border-right: none; margin-right: 0; }
+    .hstat-num { font-family: 'Bebas Neue', sans-serif; font-size: 38px; letter-spacing: 2px; color: var(--orange); line-height: 1; }
+    .hstat-lbl { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+
+    .hero-vis-card { background: var(--dark2); border: 1px solid var(--border-strong); border-radius: 4px; overflow: hidden; position: relative; }
+    .hvc-top { background: var(--dark3); padding: 11px 16px; display: flex; align-items: center; gap: 7px; border-bottom: 1px solid var(--border); }
+    .hvc-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .hvc-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--gray); letter-spacing: 1px; margin-left: 4px; }
+    .hvc-body { padding: 22px; }
+    .hvc-avatar { width: 80px; height: 80px; background: linear-gradient(135deg, var(--orange), var(--yellow)); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 44px; color: var(--black); margin-bottom: 16px; }
+    .hvc-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px; color: var(--white); margin-bottom: 2px; }
+    .hvc-role-txt { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--orange); letter-spacing: 2px; margin-bottom: 16px; }
+    .hvc-metrics { display: flex; flex-direction: column; gap: 11px; }
+    .hvc-metric-row { display: flex; justify-content: space-between; align-items: center; }
+    .hvc-metric-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--gray); letter-spacing: 1px; min-width: 76px; }
+    .hvc-bar-wrap { flex: 1; height: 2px; background: var(--dark3); margin: 0 12px; }
+    .hvc-bar-fill { height: 100%; }
+    .hvc-pct { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--white); min-width: 28px; text-align: right; }
+    .hvc-footer { padding: 12px 22px; border-top: 1px solid var(--border); display: flex; gap: 6px; flex-wrap: wrap; }
+    .hvc-chip { font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 3px 9px; border: 1px solid var(--border); color: var(--gray); letter-spacing: 1px; border-radius: 1px; }
+
+    .hero-fi-wrap { position: relative; }
+    .fi-item { position: absolute; width: 42px; height: 42px; background: var(--dark3); border: 1px solid var(--border-strong); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 16px; animation: fi-float 3.5s ease-in-out infinite; }
+    .fi-item:nth-child(1) { top: -16px; right: -16px; color: var(--orange); animation-delay: 0s; border-color: rgba(255,107,0,0.35); }
+    .fi-item:nth-child(2) { bottom: 40px; right: -20px; color: var(--yellow); animation-delay: 0.9s; border-color: rgba(245,197,24,0.35); }
+    .fi-item:nth-child(3) { top: 56px; left: -20px; color: var(--green); animation-delay: 1.8s; border-color: rgba(34,197,94,0.35); }
+    @keyframes fi-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    .scroll-ind { position: absolute; bottom: 30px; left: 5%; display: flex; align-items: center; gap: 12px; color: var(--gray); font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; }
+    .scroll-line { width: 40px; height: 1px; background: var(--gray2); position: relative; overflow: hidden; }
+    .scroll-line::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--orange); animation: sla 2s infinite; }
+    @keyframes sla { to { left: 100%; } }
+
+    /* ABOUT */
+    #about { padding: 120px 0; border-top: 1px solid var(--border); }
+    .about-grid { display: grid; grid-template-columns: 360px 1fr; gap: 72px; align-items: start; }
+    .about-profile-card { background: var(--dark2); border: 1px solid var(--border-strong); border-radius: 4px; overflow: hidden; position: sticky; top: 78px; }
+    .apc-header { padding: 28px 24px; background: linear-gradient(135deg, rgba(255,107,0,0.08), rgba(245,197,24,0.04)); border-bottom: 1px solid var(--border); text-align: center; }
+    .apc-avatar { width: 90px; height: 90px; background: linear-gradient(135deg, var(--orange), var(--yellow)); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--black); margin: 0 auto 14px; }
+    .apc-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px; color: var(--white); margin-bottom: 3px; }
+    .apc-role { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--orange); letter-spacing: 2px; text-transform: uppercase; }
+    .apc-body { padding: 20px 24px; }
+    .apc-info-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .apc-info-row:last-child { border-bottom: none; }
+    .apc-info-row i { color: var(--orange); width: 15px; font-size: 12px; }
+    .apc-info-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; min-width: 68px; }
+    .apc-info-val { color: var(--white); font-size: 13px; font-weight: 500; }
+    .apc-social { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 8px; }
+    .sl { flex: 1; height: 36px; background: var(--dark3); border: 1px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; color: var(--gray); text-decoration: none; font-size: 13px; transition: all 0.2s; }
+    .sl:hover { border-color: var(--orange); color: var(--orange); background: var(--orange-dim); }
+    .about-content { padding-top: 4px; }
+    .about-content h3 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; color: var(--white); margin-bottom: 16px; }
+    .about-text { font-size: 15px; line-height: 1.9; color: var(--gray); margin-bottom: 32px; }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px; }
+    .info-item { padding: 14px 16px; background: var(--dark2); border: 1px solid var(--border); border-radius: 2px; border-left: 2px solid var(--orange); transition: border-color 0.2s; }
+    .info-item:hover { border-left-color: var(--yellow); }
+    .info-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--orange); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
+    .info-value { font-size: 13px; color: var(--white); font-weight: 500; }
+
+    /* RESUME */
+    #resume { padding: 120px 0; border-top: 1px solid var(--border); background: var(--dark); }
+    .resume-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
+    .rc-title { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 3px; color: var(--white); margin-bottom: 28px; padding-bottom: 12px; border-bottom: 1px solid var(--border-strong); display: flex; align-items: center; gap: 10px; }
+    .rc-title i { color: var(--orange); }
+    .timeline { position: relative; padding-left: 24px; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 6px; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--orange), transparent); }
+    .tl-item { position: relative; margin-bottom: 28px; }
+    .tl-dot { position: absolute; left: -29px; top: 7px; width: 9px; height: 9px; background: var(--orange); border-radius: 0; transform: rotate(45deg); }
+    .tl-card { padding: 18px 22px; background: var(--dark2); border: 1px solid var(--border); border-radius: 2px; transition: all 0.2s; border-left: 2px solid transparent; }
+    .tl-card:hover { border-left-color: var(--orange); transform: translateX(4px); }
+    .tl-date { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--orange); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+    .tl-title { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; color: var(--white); margin-bottom: 3px; }
+    .tl-place { font-size: 12px; color: var(--yellow); margin-bottom: 7px; font-weight: 500; }
+    .tl-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    /* EXPERIENCE */
+    #experience { padding: 120px 0; border-top: 1px solid var(--border); }
+    .exp-card { max-width: 780px; margin: 0 auto; background: var(--dark2); border: 1px solid var(--border-strong); border-radius: 4px; overflow: hidden; }
+    .exp-card-top { padding: 5px 30px; background: linear-gradient(90deg, var(--orange), var(--yellow)); font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--black); letter-spacing: 2px; font-weight: 700; }
+    .exp-card-body { padding: 32px 36px; }
+    .exp-header-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+    .exp-active { background: var(--green-dim); border: 1px solid rgba(34,197,94,0.4); border-radius: 2px; padding: 4px 12px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--green); letter-spacing: 2px; }
+    .exp-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; color: var(--white); margin-bottom: 3px; }
+    .exp-co { font-size: 14px; color: var(--orange); margin-bottom: 14px; font-weight: 500; }
+    .exp-desc { font-size: 14px; color: var(--gray); line-height: 1.85; }
+
+    /* SERVICES */
+    #services { padding: 120px 0; border-top: 1px solid var(--border); background: var(--dark); }
+    .srv-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .srv-card { padding: 32px 26px; background: var(--dark); transition: all 0.28s; position: relative; overflow: hidden; }
+    .srv-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.3s; }
+    .srv-card:hover { background: var(--dark2); }
+    .srv-card:hover::before { background: linear-gradient(90deg, var(--orange), var(--yellow)); }
+    .srv-num { font-family: 'Bebas Neue', sans-serif; font-size: 44px; color: rgba(255,255,255,0.04); line-height: 1; margin-bottom: 14px; }
+    .srv-icon { width: 44px; height: 44px; background: var(--orange-dim); border: 1px solid rgba(255,107,0,0.28); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--orange); margin-bottom: 16px; transition: all 0.28s; }
+    .srv-card:hover .srv-icon { background: var(--orange); color: var(--black); }
+    .srv-title { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; color: var(--white); margin-bottom: 9px; }
+    .srv-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+    /* SKILLS */
+    #skills { padding: 120px 0; border-top: 1px solid var(--border); }
+    .skills-lay { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    .skill-item { margin-bottom: 24px; }
+    .skill-hdr { display: flex; justify-content: space-between; margin-bottom: 8px; align-items: center; }
+    .skill-name { font-size: 13px; font-weight: 600; color: var(--white); }
+    .skill-pct { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--orange); font-weight: 600; }
+    .skill-bar { height: 2px; background: var(--dark3); border-radius: 0; overflow: hidden; }
+    .skill-fill { height: 100%; border-radius: 0; width: 0; transition: width 1.6s cubic-bezier(.16,1,.3,1); }
+    .sf-orange { background: linear-gradient(90deg, var(--orange), var(--yellow)); }
+    .sf-green { background: linear-gradient(90deg, var(--green), #86efac); }
+    .sf-yellow { background: linear-gradient(90deg, var(--yellow), #fde68a); }
+    .skills-extra h3 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; color: var(--white); margin-bottom: 18px; }
+    .expertise-box { margin-top: 32px; padding: 24px; background: var(--dark2); border: 1px solid var(--border); border-left: 2px solid var(--orange); }
+    .exp-score-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--orange); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+    .exp-score-row { display: flex; align-items: center; gap: 18px; }
+    .exp-score-num { font-family: 'Bebas Neue', sans-serif; font-size: 60px; line-height: 1; color: var(--orange); }
+    .exp-score-text { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+    /* PROJECTS */
+    #projects { padding: 120px 0; border-top: 1px solid var(--border); background: var(--dark); }
+    .proj-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .proj-card { background: var(--dark); transition: background 0.28s; position: relative; overflow: hidden; }
+    .proj-card:hover { background: var(--dark2); }
+    .proj-img-w { overflow: hidden; height: 175px; position: relative; }
+    .proj-img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.38) saturate(0.25); transition: all 0.45s; }
+    .proj-card:hover .proj-img { filter: brightness(0.55) saturate(0.65); transform: scale(1.04); }
+    .proj-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, var(--dark) 0%, transparent 55%); }
+    .proj-num { position: absolute; top: 14px; left: 18px; font-family: 'Bebas Neue', sans-serif; font-size: 11px; color: var(--orange); letter-spacing: 3px; background: rgba(8,8,8,0.72); padding: 3px 9px; }
+    .proj-body { padding: 20px 22px; }
+    .proj-tag { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--orange); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 7px; }
+    .proj-title { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1px; color: var(--white); margin-bottom: 7px; line-height: 1.3; }
+    .proj-desc { font-size: 12px; color: var(--gray); line-height: 1.7; }
+    .proj-footer { padding: 12px 22px; border-top: 1px solid var(--border); display: flex; gap: 5px; flex-wrap: wrap; }
+    .proj-chip { font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 3px 8px; border: 1px solid var(--border); color: var(--gray); letter-spacing: 1px; }
+    .proj-card.featured { grid-column: span 2; }
+    .proj-card.featured .proj-img-w { height: 210px; }
+    .proj-card.featured .proj-title { font-size: 19px; }
+    .proj-card.featured .proj-body { padding: 24px; }
+    .proj-card.featured .proj-desc { font-size: 13px; }
+    .proj-highlight { display: inline-block; background: var(--orange); color: var(--black); font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; padding: 2px 10px; margin-bottom: 7px; font-weight: 700; }
+    .proj-kf { margin-top: 12px; }
+    .proj-kf-title { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+    .proj-kf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .proj-kf-item { font-size: 12px; color: var(--gray); display: flex; align-items: flex-start; gap: 6px; line-height: 1.55; }
+    .proj-kf-item::before { content: '▸'; color: var(--orange); font-size: 9px; margin-top: 3px; flex-shrink: 0; }
+    .proj-result { margin-top: 12px; padding: 8px 12px; background: rgba(34,197,94,0.07); border-left: 2px solid var(--green); font-size: 12px; color: var(--green); font-family: 'JetBrains Mono', monospace; }
+
+    /* COUNTERS */
+    #counters { padding: 60px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--dark2); }
+    .ctr-grid { display: grid; grid-template-columns: repeat(4,1fr); }
+    .ctr-item { text-align: center; padding: 32px 18px; border-right: 1px solid var(--border); transition: background 0.2s; }
+    .ctr-item:last-child { border-right: none; }
+    .ctr-item:hover { background: rgba(255,107,0,0.04); }
+    .ctr-num { font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 2px; color: var(--white); line-height: 1; display: flex; align-items: center; justify-content: center; gap: 2px; }
+    .ctr-plus { color: var(--orange); font-size: 32px; line-height: 1; }
+    .ctr-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--gray); text-transform: uppercase; letter-spacing: 2px; margin-top: 9px; }
+
+    /* GAME */
+    #game { padding: 120px 0; border-top: 1px solid var(--border); }
+    .game-wrap { max-width: 660px; margin: 0 auto; }
+    .game-desc { font-size: 14px; color: var(--gray); margin-bottom: 24px; line-height: 1.7; }
+    .game-stats { display: flex; background: var(--dark2); border: 1px solid var(--border); margin-bottom: 24px; }
+    .gs-block { flex: 1; padding: 14px 18px; text-align: center; border-right: 1px solid var(--border); }
+    .gs-block:last-child { border-right: none; }
+    .gs-val { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: var(--orange); line-height: 1; }
+    .gs-lbl { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; }
+    #gmsg { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--yellow); min-height: 26px; margin-bottom: 18px; letter-spacing: 2px; }
+    #mgrid { display: grid; grid-template-columns: repeat(4,1fr); gap: 7px; margin-bottom: 22px; }
+    .mc { height: 92px; cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.5s; }
+    .mc.flipped { transform: rotateY(180deg); }
+    .mc-front, .mc-back { position: absolute; inset: 0; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 2px; }
+    .mc-back { background: var(--dark2); transform: rotateY(180deg); font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--orange); text-align: center; padding: 8px; gap: 5px; line-height: 1.4; }
+    .mc-back i { font-size: 19px; }
+    .mc-front { background: var(--dark3); }
+    .mc-front::after { content: '?'; font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: rgba(255,107,0,0.2); letter-spacing: 2px; }
+    .mc.matched .mc-back { background: rgba(34,197,94,0.07); border-color: rgba(34,197,94,0.38); }
+    .mc.matched .mc-back i, .mc.matched .mc-back span { color: var(--green); }
+
+    /* HIRE BAND */
+    .hire-band { padding: 72px 0; background: var(--dark2); border-top: 1px solid var(--border); position: relative; overflow: hidden; }
+    .hire-band::before { content: 'HIRE ME'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Bebas Neue', sans-serif; font-size: 200px; letter-spacing: 20px; color: rgba(255,255,255,0.013); white-space: nowrap; pointer-events: none; }
+    .hire-band-inner { display: flex; align-items: center; justify-content: space-between; gap: 36px; flex-wrap: wrap; position: relative; }
+    .hire-band h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(26px, 4vw, 46px); letter-spacing: 3px; color: var(--white); margin-bottom: 7px; }
+    .hire-band h2 span { color: var(--orange); }
+    .hire-band p { font-size: 14px; color: var(--gray); max-width: 480px; line-height: 1.8; }
+
+    /* CONTACT */
+    #contact { padding: 120px 0; border-top: 1px solid var(--border); }
+    .con-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 56px; }
+    .con-info-items { display: flex; flex-direction: column; gap: 10px; }
+    .con-item { display: flex; gap: 13px; align-items: center; padding: 14px 18px; background: var(--dark2); border: 1px solid var(--border); border-radius: 2px; border-left: 2px solid transparent; transition: all 0.2s; }
+    .con-item:hover { border-left-color: var(--orange); }
+    .con-icon { width: 38px; height: 38px; background: var(--orange-dim); border: 1px solid rgba(255,107,0,0.28); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--orange); flex-shrink: 0; }
+    .con-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--gray); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 3px; }
+    .con-value { font-size: 13px; color: var(--white); text-decoration: none; font-weight: 500; }
+    .con-value:hover { color: var(--orange); }
+    .map-box { width: 100%; height: 160px; border-radius: 2px; overflow: hidden; border: 1px solid var(--border); margin-top: 10px; }
+    .map-box iframe { width: 100%; height: 100%; border: 0; filter: invert(.9) hue-rotate(200deg) saturate(.4) brightness(.75); }
+    .con-socials { margin-top: 14px; display: flex; gap: 7px; }
+    .con-form-w { background: var(--dark2); border: 1px solid var(--border-strong); border-radius: 4px; overflow: hidden; }
+    .con-form-header { padding: 4px 26px; background: linear-gradient(90deg, var(--orange), var(--yellow)); font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--black); letter-spacing: 2px; font-weight: 700; }
+    .con-form-body { padding: 28px 26px; }
+    .fg { margin-bottom: 16px; }
+    .fg label { display: block; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--gray); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 7px; }
+    .fg input, .fg textarea { width: 100%; padding: 11px 14px; background: var(--dark3); border: 1px solid var(--border); border-radius: 2px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; transition: all 0.2s; outline: none; }
+    .fg input:focus, .fg textarea:focus { border-color: var(--orange); background: rgba(255,107,0,0.04); }
+    .fg textarea { resize: vertical; min-height: 105px; }
+
+    footer { padding: 32px 0; border-top: 1px solid var(--border); background: var(--dark); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 4px; color: var(--white); text-decoration: none; }
+    .footer-logo span { color: var(--orange); }
+    footer p { font-size: 12px; color: var(--gray); }
+    footer p span { color: var(--orange); }
+
+    #stt { position: fixed; bottom: 26px; right: 26px; width: 44px; height: 44px; background: var(--orange); border: none; border-radius: 2px; color: var(--black); font-size: 15px; cursor: pointer; z-index: 800; display: none; align-items: center; justify-content: center; transition: all 0.2s; }
+    #stt:hover { background: var(--yellow); transform: translateY(-3px); }
+    #stt.vis { display: flex; }
+
+    .fu { opacity: 0; transform: translateY(26px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fu.vis { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1024px) {
+      .hero-wrap { grid-template-columns: 1fr; gap: 44px; }
+      .hero-vis-card { max-width: 400px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-profile-card { position: static; }
+    }
+    @media (max-width: 900px) {
+      .hero-wrap, .resume-cols, .skills-lay, .con-grid { grid-template-columns: 1fr; gap: 44px; }
+      .srv-grid, .proj-grid { grid-template-columns: 1fr 1fr; }
+      .proj-card.featured { grid-column: span 1; }
+      .ctr-grid { grid-template-columns: repeat(2,1fr); }
+      .ctr-item:nth-child(2) { border-right: none; }
+      .ctr-item:nth-child(3) { border-top: 1px solid var(--border); }
+      .hire-band-inner { flex-direction: column; text-align: center; }
+      .nav-links { display: none; position: absolute; top: 62px; left: 0; right: 0; background: rgba(8,8,8,0.98); flex-direction: column; padding: 18px; gap: 3px; border-bottom: 1px solid var(--border); }
+      .nav-links.open { display: flex; }
+      .nav-tog { display: block; }
+    }
+    @media (max-width: 560px) {
+      .srv-grid, .proj-grid { grid-template-columns: 1fr; }
+      .info-grid { grid-template-columns: 1fr; }
+      #mgrid { gap: 5px; }
+      .mc { height: 76px; }
+      .hero-stats { flex-direction: column; gap: 18px; }
+      .hstat { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 18px; margin-bottom: 0; margin-right: 0; }
+      .hstat:last-child { border-bottom: none; padding-bottom: 0; }
+      .proj-kf-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="ldr">
+  <div class="ldr-logo">HARI<span>HARAN</span></div>
+  <div class="ldr-sub">SAP MM Consultant · Portfolio</div>
+  <div class="ldr-track"><div class="ldr-fill"></div></div>
+  <div class="ldr-pct">Loading...</div>
+</div>
+
+<div id="cd"></div>
+<div id="co"></div>
+<div id="pb"></div>
+
+<!-- NAV -->
+<nav id="nbar">
+  <a class="nav-logo" href="#home">HARI<span>HARAN</span></a>
+  <button class="nav-tog" onclick="toggleNav()"><i class="fas fa-bars"></i></button>
+  <ul class="nav-links" id="nvl">
+    <li><a href="#home" onclick="closeNav()">Home</a></li>
+    <li><a href="#about" onclick="closeNav()">About</a></li>
+    <li><a href="#resume" onclick="closeNav()">Resume</a></li>
+    <li><a href="#experience" onclick="closeNav()">Experience</a></li>
+    <li><a href="#services" onclick="closeNav()">Services</a></li>
+    <li><a href="#skills" onclick="closeNav()">Skills</a></li>
+    <li><a href="#projects" onclick="closeNav()">Projects</a></li>
+    <li><a href="#game" onclick="closeNav()">SAP Game</a></li>
+    <li><a href="#contact" onclick="closeNav()" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-accent"></div>
+  <div class="hero-wrap">
+    <div class="fu">
+      <div class="hero-available"><span class="hero-dot"></span>Available for Opportunities</div>
+      <h1 class="hero-name">HARI<br><span class="accent">HARAN P</span></h1>
+      <div class="hero-divider"></div>
+      <div class="hero-role">I'm a <span id="typed-el"></span></div>
+      <p class="hero-desc">SAP MM Consultant with expertise in Procure-to-Pay processes, inventory management, ABAP automation, and SAP S/4HANA — delivering efficient, structured solutions for business excellence.</p>
+      <div class="hero-btns">
+        <a href="mailto:hariharan2732004@gmail.com" class="btn btn-p"><i class="fas fa-envelope"></i> Hire Me</a>
+        <a href="#projects" class="btn btn-o"><i class="fas fa-briefcase"></i> My Work</a>
+        <a href="https://drive.google.com/file/d/1-MBQs09h2k8-0HBT5ee38fLpFvDumh64/view?usp=sharing" target="_blank" class="btn btn-o"><i class="fas fa-download"></i> Resume</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-num">5<span style="color:var(--orange)">+</span></div><div class="hstat-lbl">SAP Modules</div></div>
+        <div class="hstat"><div class="hstat-num">40<span style="color:var(--orange)">+</span></div><div class="hstat-lbl">P2P Cases</div></div>
+        <div class="hstat"><div class="hstat-num">10<span style="color:var(--orange)">+</span></div><div class="hstat-lbl">Projects</div></div>
+      </div>
+    </div>
+    <div class="fu hero-fi-wrap" style="animation-delay:.2s">
+      <div class="fi-item"><i class="fas fa-gear"></i></div>
+      <div class="fi-item"><i class="fas fa-boxes-stacked"></i></div>
+      <div class="fi-item"><i class="fas fa-file-invoice"></i></div>
+      <div class="hero-vis-card">
+        <div class="hvc-top">
+          <div class="hvc-dot" style="background:#FF6B00"></div>
+          <div class="hvc-dot" style="background:#F5C518"></div>
+          <div class="hvc-dot" style="background:#22C55E"></div>
+          <span class="hvc-title">hariharan.profile.sap</span>
+        </div>
+        <div class="hvc-body">
+          <div class="hvc-avatar">H</div>
+          <div class="hvc-name">HARIHARAN P</div>
+          <div class="hvc-role-txt">// SAP MM CONSULTANT · S/4HANA</div>
+          <div class="hvc-metrics">
+            <div class="hvc-metric-row">
+              <span class="hvc-metric-label">SAP MM</span>
+              <div class="hvc-bar-wrap"><div class="hvc-bar-fill" style="width:95%;background:linear-gradient(90deg,var(--orange),var(--yellow))"></div></div>
+              <span class="hvc-pct">95%</span>
+            </div>
+            <div class="hvc-metric-row">
+              <span class="hvc-metric-label">P2P Process</span>
+              <div class="hvc-bar-wrap"><div class="hvc-bar-fill" style="width:90%;background:linear-gradient(90deg,var(--orange),var(--yellow))"></div></div>
+              <span class="hvc-pct">90%</span>
+            </div>
+            <div class="hvc-metric-row">
+              <span class="hvc-metric-label">SAP SUPPORT</span>
+              <div class="hvc-bar-wrap"><div class="hvc-bar-fill" style="width:80%;background:linear-gradient(90deg,var(--green),#86efac)"></div></div>
+              <span class="hvc-pct">80%</span>
+            </div>
+            <div class="hvc-metric-row">
+              <span class="hvc-metric-label">S/4HANA</span>
+              <div class="hvc-bar-wrap"><div class="hvc-bar-fill" style="width:85%;background:linear-gradient(90deg,var(--yellow),#fde68a)"></div></div>
+              <span class="hvc-pct">85%</span>
+            </div>
+          </div>
+        </div>
+        <div class="hvc-footer">
+          <span class="hvc-chip">SAP MM</span>
+          <span class="hvc-chip">S/4HANA</span>
+          <span class="hvc-chip">P2P</span>
+          <span class="hvc-chip">MIGO</span>
+          <span class="hvc-chip">MIRO</span>
+          <span class="hvc-chip">ABAP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-ind"><div class="scroll-line"></div>Scroll Down</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="sh fu">
+      <div class="section-label">// get_to_know_me()</div>
+      <div class="sh-inner">
+        <h2 class="section-title">About <span>Me</span></h2>
+        <div class="sh-num">01</div>
+        <div class="sh-rule"></div>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div class="fu">
+        <div class="about-profile-card">
+          <div class="apc-header">
+            <div class="apc-avatar">H</div>
+            <div class="apc-name">HARIHARAN P</div>
+            <div class="apc-role">// SAP MM CONSULTANT</div>
+          </div>
+          <div class="apc-body">
+            <div class="apc-info-row"><i class="fas fa-map-marker-alt"></i><span class="apc-info-label">Location</span><span class="apc-info-val">Pattukkottai, TN</span></div>
+            <div class="apc-info-row"><i class="fas fa-graduation-cap"></i><span class="apc-info-label">Degree</span><span class="apc-info-val">B.E. ECE</span></div>
+            <div class="apc-info-row"><i class="fas fa-certificate"></i><span class="apc-info-label">Cert.</span><span class="apc-info-val">SAP MM S/4HANA</span></div>
+            <div class="apc-info-row"><i class="fas fa-briefcase"></i><span class="apc-info-label">Status</span><span class="apc-info-val" style="color:var(--green)">● Active</span></div>
+          </div>
+          <div class="apc-social">
+            <a href="https://www.linkedin.com/in/hariharan2732004/" target="_blank" class="sl"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/hariharan2732004" target="_blank" class="sl"><i class="fab fa-github"></i></a>
+            <a href="https://www.hackerrank.com/profile/hariharan2732004" target="_blank" class="sl"><i class="fab fa-hackerrank"></i></a>
+            <a href="https://wa.me/917904158150" target="_blank" class="sl"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="about-content fu" style="animation-delay:.15s">
+        <h3>SAP MM Consultant</h3>
+        <p class="about-text">Focused B.E. graduate in Electronics and Communications with strong communication skills, building a career as an SAP MM Consultant. Skilled in procurement, inventory management, P2P processes, and ABAP automation tools — with the ability to learn quickly and adapt to business requirements. Committed to contributing to organizational efficiency while continuously enhancing SAP knowledge.</p>
+        <div class="info-grid">
+          <div class="info-item"><div class="info-label">Full Name</div><div class="info-value">Hariharan P</div></div>
+          <div class="info-item"><div class="info-label">Date of Birth</div><div class="info-value">March 27, 2004</div></div>
+          <div class="info-item"><div class="info-label">Phone</div><div class="info-value">+91 7904158150</div></div>
+          <div class="info-item"><div class="info-label">Email</div><div class="info-value">hariharan2732004@gmail.com</div></div>
+          <div class="info-item"><div class="info-label">Location</div><div class="info-value">Pattukkottai, TN, India</div></div>
+          <div class="info-item"><div class="info-label">Zip Code</div><div class="info-value">614601</div></div>
+        </div>
+        <a href="https://drive.google.com/file/d/1-MBQs09h2k8-0HBT5ee38fLpFvDumh64/view?usp=sharing" target="_blank" class="btn btn-p"><i class="fas fa-download"></i> Download CV</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+  <div class="container">
+    <div class="sh fu">
+      <div class="section-label">// my_background()</div>
+      <div class="sh-inner">
+        <h2 class="section-title">Re<span>sume</span></h2>
+        <div class="sh-num">02</div>
+        <div class="sh-rule"></div>
+      </div>
+    </div>
+    <div style="max-width:660px;margin:0 auto 52px;padding:20px 24px;background:var(--dark2);border:1px solid var(--border);border-left:2px solid var(--orange)" class="fu">
+      <p style="font-size:14px;color:var(--gray);line-height:1.9">As a recent graduate in Electronics and Communication Engineering, I aim to apply my knowledge of procurement processes, inventory management, and SAP S/4HANA MM concepts such as P2P, material master, and vendor management.</p>
+    </div>
+    <div class="resume-cols">
+      <div class="fu">
+        <div class="rc-title"><i class="fas fa-graduation-cap"></i> Education</div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-date">2019</div><div class="tl-title">SSLC — 10th Standard</div><div class="tl-place">Brindhavan Higher Secondary School</div><div class="tl-desc">Completed SSLC with strong academic performance.</div></div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-date">2020</div><div class="tl-title">HSC — 12th Standard</div><div class="tl-place">Brindhavan Higher Secondary School</div><div class="tl-desc">Completed Higher Secondary Certificate (12th Standard).</div></div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-date">2021 – 2025</div><div class="tl-title">B.E. Electronics & Communication</div><div class="tl-place">K Ramakrishnan College of Technology</div><div class="tl-desc">Completed Bachelor's in Electronics and Communication Engineering.</div></div></div>
+        </div>
+      </div>
+      <div class="fu" style="animation-delay:.15s">
+        <div class="rc-title"><i class="fas fa-certificate"></i> Certification</div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-date">2025</div><div class="tl-title">SAP MM Consultant</div><div class="tl-place">Vikapri Training</div><div class="tl-desc">SAP Certified MM Consultant with hands-on training in SAP S/4HANA MM — procurement, inventory, P2P process, material master, and vendor management.</div></div></div>
+        </div>
+        <div class="rc-title" style="margin-top:38px"><i class="fas fa-code"></i> Tech Stack</div>
+        <div class="tech-tags">
+          <span class="tag"><i class="fas fa-database"></i>SAP S/4HANA</span>
+          <span class="tag"><i class="fas fa-gear"></i>SAP MM</span>
+          <span class="tag"><i class="fas fa-file-invoice"></i>MIGO / MIRO</span>
+          <span class="tag"><i class="fas fa-cart-shopping"></i>P2P Process</span>
+          <span class="tag"><i class="fas fa-code"></i>SAP ABAP</span>
+          <span class="tag"><i class="fab fa-html5"></i>HTML / CSS</span>
+          <span class="tag"><i class="fas fa-boxes-stacked"></i>Inventory Mgmt</span>
+          <span class="tag"><i class="fas fa-users-gear"></i>Vendor Mgmt</span>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:44px" class="fu">
+      <a href="https://drive.google.com/file/d/1-MBQs09h2k8-0HBT5ee38fLpFvDumh64/view?usp=sharing" target="_blank" class="btn btn-p"><i class="fas fa-download"></i> Download Full CV</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="sh fu">
+      <div class="section-label">// work_history()</div>
+      <div class="sh-inner">
+        <h2 class="section-title">Experi<span>ence</span></h2>
+        <div class="sh-num">03</div>
+        <div class="sh-rule"></div>
+      </div>
+    </div>
+    <div class="fu">
+      <div class="exp-card">
+        <div class="exp-card-top">CURRENT ROLE · 2026 – PRESENT</div>
+        <div class="exp-card-body">
+          <div class="exp-header-row">
+            <div><div class="exp-title">SAP MM Support Consultant</div><div class="exp-co">Ocean Lifespace Ind Pvt Ltd</div></div>
+            <span class="exp-active">● ACTIVE</span>
+          </div>
+          <p class="exp-desc">Providing L1 support for Procurement and Inventory processes at Ocean Lifespace India Pvt Ltd. Handling PR, PO, MIGO, and MIRO transactions while ensuring smooth end-to-end Procure-to-Pay (P2P) operations.</p>
+          <div class="tech-tags" style="margin-top:18px">
+            <span class="tag" style="font-size:10px;padding:4px 11px">PR / PO</span>
+            <span class="tag" style="font-size:10px;padding:4px 11px">MIGO</span>
+            <span class="tag" style="font-size:10px;padding:4px 11px">MIRO</span>
+            <span class="tag" style="font-size:10px;padding:4px 11px">L1 Support</span>
+            <span class="tag" style="font-size:10px;padding:4px 11px">P2P</span>
+            <span class="tag" style="font-size:10px;padding:4px 11px">S/4HANA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="sh fu">
+      <div class="section-label">// what_i_offer()</div>
+      <div class="sh-inner">
+        <h2 class="section-title">Ser<span>vices</span></h2>
+        <div class="sh-num">04</div>
+        <div class="sh-rule"></div>
+      </div>
+      <p style="color:var(--gray);margin-top:14px;font-size:14px;max-width:520px">Specialized in SAP MM services covering procurement, inventory control, and vendor management in SAP S/4HANA.</p>
+    </div>
+    <div class="srv-grid fu">
+      <div class="srv-card"><div class="srv-num">01</div><div class="srv-icon"><i class="fas fa-gear"></i></div><div class="srv-title">SAP MM Configuration</div><div class="srv-desc">End-to-end SAP MM module configuration including org structures, purchasing info records, and system settings.</div></div>
+      <div class="srv-card"><div class="srv-num">02</div><div class="srv-icon"><i class="fas fa-cart-shopping"></i></div><div class="srv-title">Procure-to-Pay (P2P)</div><div class="srv-desc">Complete P2P cycle management from purchase requisition to payment, covering all SAP MM transactions.</div></div>
+      <div class="srv-card"><div class="srv-num">03</div><div class="srv-icon"><i class="fas fa-boxes-stacked"></i></div><div class="srv-title">Material Master Management</div><div class="srv-desc">Creation and maintenance of material master data across all relevant organizational levels and views.</div></div>
+      <div class="srv-card"><div class="srv-num">04</div><div class="srv-icon"><i class="fas fa-warehouse"></i></div><div class="srv-title">Inventory Management</div><div class="srv-desc">Stock control, goods movements, physical inventory, and special stock management using SAP MM.</div></div>
+      <div class="srv-card"><div class="srv-num">05</div><div class="srv-icon"><i class="fas fa-users-gear"></i></div><div class="srv-title">Vendor Management</div><div class="srv-desc">Vendor master data setup, source determination, quotation comparison, and vendor evaluation processes.</div></div>
+      <div class="srv-card"><div class="srv-num">06</div><div class="srv-icon"><i class="fas fa-file-invoice"></i></div><div class="srv-title">GR & Invoice Verification</div><div class="srv-desc">Goods receipt processing (MIGO) and invoice verification (MIRO) ensuring accurate FI integration.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="sh fu">
+      <div class="section-label">// my_expertise()</div>
+      <div class="sh-inner">
+        <h2 class="section-title">Ski<span>lls</span></h2>
+        <div class="sh-num">05</div>
+        <div class="sh-rule"></div>
+      </div>
+    </div>
+    <div class="skills-lay">
+      <div class="fu">
+        <div class="skill-item"><div class="skill-hdr"><span class="skill-name">SAP MM (Materials Management)</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill sf-orange" data-width="95"></div></div></div>
+        <div class="skill-item"><div class="skill-hdr"><span class="skill-name">P2P Process & Documentation</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill sf-orange" data-width="90"></div></div></div>
+        <div class="skill-item"><div class="skill-hdr"><span class="skill-name">SAP PM (Plant Maintenance)</span><span class="skill-pct">40%</span></div><div class="skill-bar"><div class="skill-fill sf-yellow" data-width="40"></div></div></div>
+        <div class="skill-item"><div class="skill-hdr"><span class="skill-name">SAP FI (Financial Accounting)</span><span class="skill-pct">35%</span></div><div class="skill-bar"><div class="skill-fill sf-yellow" data-width="35"></div></div></div>
+        <div class="skill-item"><div class="skill-hdr"><span class="skill-name">HTML / CSS</span><span class="skill-pct">35%</span></div><div class="skill-bar"><div class="skill-fill sf-yellow" data-width="35"></div></div></div>
+        <div class="skill-item"><div class="skill-hdr"><span class="skill-name">SAP ABAP</span><span class="skill-pct">30%</span></div><div class="skill-bar"><div class="skill-fill sf-green" data-width="30"></div></div></div>
+        <div class="skill-item"><div class="skill-hdr"><span class="skill-name">SAP QM (Quality Management)</span><span class="skill-pct">25%</span></div><div class="skill-bar"><div class="skill-fill sf-green" data-width="25"></div></div></div>
+      </div>
+      <div class="skills-extra fu" style="animation-delay:.15s">
+        <h3>Technology Stack</h3>
+        <div class="tech-tags">
+          <span class="tag"><i class="fas fa-database"></i>SAP S/4HANA</span>
+          <span class="tag"><i class="fas fa-gear"></i>SAP MM</span>
+          <span class="tag"><i class="fas fa-chart-line"></i>SAP FI</span>
+          <span class="tag"><i class="fas fa-microscope"></i>SAP QM</span>
+          <span class="tag"><i class="fas fa-wrench"></i>SAP PM</span>
+          <span class="tag"><i class="fas fa-code"></i>SAP ABAP</span>
+          <span class="tag"><i class="fas fa-file-invoice-dollar"></i>MIRO</span>
+          <span class="tag"><i class="fas fa-truck"></i>MIGO</span>
+          <span class="tag"><i class="fas fa-shopping-cart"></i>Purchase Orders</span>
+          <span class="tag"><i class="fas fa-clipboard-list"></i>Purchase Reqs</span>
+          <span class="tag"><i class="fas fa-boxes"></i>Stock Management</span>
+          <span class="tag"><i class="fab fa-html5"></i>HTML5</span>
+          <span class="tag"><i class="fab fa-css3-alt"></i>CSS3</span>
+        </div>
+        <div class="expertise-box">
+          <div class="exp-score-label">// SAP_EXPERTISE_SCORE</div>
+          <div class="exp-score-row">
+            <div class="exp-score-num">95%</div>
+            <div class="exp-score-text">Core SAP MM module proficiency with hands-on S/4HANA experience in production environments and active ABAP tool development skills.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="sh fu">
+      <div class="section-label">// my_work()</div>
+      <div class="sh-inner">
+        <h2 class="section-title">Pro<span>jects</span></h2>
+        <div class="sh-num">06</div>
+        <div class="sh-rule"></div>
+      </div>
+    </div>
+    <div class="proj-grid fu">
+
+      <!-- FEATURED: ZMM_MASS_PR -->
+      <div class="proj-card featured">
+        <div class="proj-img-w">
+          <img class="proj-img" src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=900&q=80" alt="ABAP PR Automation">
+          <div class="proj-img-overlay"></div>
+          <div class="proj-num">01 · FEATURED</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-highlight">ABAP CUSTOM TOOL</div>
+          <div class="proj-tag">SAP ABAP · Supply Chain Automation</div>
+          <div class="proj-title">SAP Mass PR Automation — ZMM_MASS_PR</div>
+          <p class="proj-desc">Manual entry in ME51N was slow and error-prone, especially for complex Project (P) and Make-to-Order (Q) requisitions. I developed a custom ABAP tool that lets users upload a 14-column Excel sheet to generate multi-line Purchase Requisitions instantly — bundled under a single PR number.</p>
+          <div class="proj-kf">
+            <div class="proj-kf-title">// KEY TECHNICAL FEATURES</div>
+            <div class="proj-kf-grid">
+              <div class="proj-kf-item">Smart validation of G/L Accounts, WBS Elements, and Valuation Prices</div>
+              <div class="proj-kf-item">One-click creation bundles all rows into a single PR (Items 10, 20, 30…)</div>
+              <div class="proj-kf-item">Ghost Row filters and UoM conversion exits for 100% data accuracy</div>
+              <div class="proj-kf-item">Custom selection screen (HARI P_FILE) for non-technical friendly experience</div>
+            </div>
+          </div>
+          <div class="proj-result">▸ Reduced PR creation time by 90% · Eliminated all data entry failures</div>
+        </div>
+        <div class="proj-footer">
+          <span class="proj-chip">ABAP</span>
+          <span class="proj-chip">BAPI_PR_CREATE</span>
+          <span class="proj-chip">Excel Integration</span>
+          <span class="proj-chip">Data Validation</span>
+          <span class="proj-chip">SAP MM</span>
+          <span class="proj-chip">Supply Chain Automation</span>
+        </div>
+      </div>
+
+      <!-- Srinivasa Motors -->
+      <div class="proj-card">
+        <div class="proj-img-w">
+          <img class="proj-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Srinivasa Motors">
+          <div class="proj-img-overlay"></div>
+          <div class="proj-num">02</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-tag">Web Development</div>
+          <div class="proj-title">Srinivasa Motors — Business Website</div>
+          <p class="proj-desc">Designed and developed a responsive business website for Srinivasa Motors, showcasing vehicle inventory, services, and contact information with a modern, mobile-first layout.</p>
+        </div>
+        <div class="proj-footer">
+          <span class="proj-chip">HTML</span>
+          <span class="proj-chip">CSS</span>
+          <span class="proj-chip">Responsive</span>
+        </div>
+      </div>
+
+      <!-- P2P -->
+      <div class="proj-card">
+        <div class="proj-img-w">
+          <img class="proj-img" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80" alt="P2P">
+          <div class="proj-img-overlay"></div>
+          <div class="proj-num">03</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-tag">P2P Process</div>
+          <div class="proj-title">SAP MM Procure to Pay (P2P) Implementation</div>
+          <p class="proj-desc">End-to-end P2P cycle covering PR, PO, GR, and Invoice Verification in SAP S/4HANA.</p>
+        </div>
+        <div class="proj-footer">
+          <span class="proj-chip">ME51N</span><span class="proj-chip">ME21N</span><span class="proj-chip">MIGO</span><span class="proj-chip">MIRO</span>
+        </div>
+      </div>
+
+      <!-- Inventory -->
+      <div class="proj-card">
+        <div class="proj-img-w">
+          <img class="proj-img" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80" alt="Inventory">
+          <div class="proj-img-overlay"></div>
+          <div class="proj-num">04</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-tag">Inventory Management</div>
+          <div class="proj-title">SAP MM Inventory Management & Stock Control</div>
+          <p class="proj-desc">Comprehensive stock control with goods movements, physical inventory, and real-time reporting.</p>
+        </div>
+        <div class="proj-footer">
+          <span class="proj-chip">MMBE</span><span class="proj-chip">MB1A</span><span class="proj-chip">MB52</span>
+        </div>
+      </div>
+
+      <!-- Material Master -->
+      <div class="proj-card">
+        <div class="proj-img-w">
+          <img class="proj-img" src="https://images.unsplash.com/photo-1508780709619-79562169bc64?w=800&q=80" alt="Material">
+          <div class="proj-img-overlay"></div>
+          <div class="proj-num">05</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-tag">Material Master Data</div>
+          <div class="proj-title">SAP MM Material Master Data Configuration</div>
+          <p class="proj-desc">Full material master setup across all organizational levels with appropriate views for MM, MRP, and accounting.</p>
+        </div>
+        <div class="proj-footer">
+          <span class="proj-chip">MM01</span><span class="proj-chip">MM02</span><span class="proj-chip">MARA</span>
+        </div>
+      </div>
+
+      <!-- Vendor -->
+      <div class="proj-card">
+        <div class="proj-img-w">
+          <img class="proj-img" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=80" alt="Vendor">
+          <div class="proj-img-overlay"></div>
+          <div class="proj-num">06</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-tag">Vendor Management</div>
+          <div class="proj-title">SAP MM Vendor Master & Source Determination</div>
+          <p class="proj-desc">Vendor master creation, source list, RFQ process, and automatic source determination configuration.</p>
+        </div>
+        <div class="proj-footer">
+          <span class="proj-chip">MK01</span><span class="proj-chip">ME01</span><span class="proj-chip">ME41</span>
+        </div>
+      </div>
+
+      <!-- GR IR -->
+      <div class="proj-card">
+        <div class="proj-img-w">
+          <img class="proj-img" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80" alt="GR IR">
+          <div class="proj-img-overlay"></div>
+          <div class="proj-num">07</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-tag">GR & Invoice Verification</div>
+          <div class="proj-title">SAP MM Goods Receipt & Invoice Verification</div>
+          <p class="proj-desc">MIGO goods receipt and MIRO invoice verification with 3-way matching configuration.</p>
+        </div>
+        <div class="proj-footer">
+          <span class="proj-chip">MIGO</span><span class="proj-chip">MIRO</span><span class="proj-chip">3-Way Match</span>
+        </div>
+      </div>
+
+      <!-- FI Integration -->
+      <div class="proj-card">
+        <div class="proj-img-w">
+          <img class="proj-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="FI">
+          <div class="proj-img-overlay"></div>
+          <div class="proj-num">08</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-tag">FI Integration</div>
+          <div class="proj-title">SAP MM Account Determination & FI Integration</div>
+          <p class="proj-desc">Account determination (OBYC) and seamless SAP MM-FI module integration for financial postings.</p>
+        </div>
+        <div class="proj-footer">
+          <span class="proj-chip">OBYC</span><span class="proj-chip">MM-FI</span><span class="proj-chip">GBB</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COUNTERS -->
+<section id="counters">
+  <div class="container">
+    <div class="ctr-grid">
+      <div class="ctr-item fu"><div class="ctr-num"><span class="cnum" data-t="5">0</span><span class="ctr-plus">+</span></div><div class="ctr-label">SAP Modules</div></div>
+      <div class="ctr-item fu" style="animation-delay:.1s"><div class="ctr-num"><span class="cnum" data-t="25">0</span><span class="ctr-plus">+</span></div><div class="ctr-label">Procurement Scenarios</div></div>
+      <div class="ctr-item fu" style="animation-delay:.2s"><div class="ctr-num"><span class="cnum" data-t="40">0</span><span class="ctr-plus">+</span></div><div class="ctr-label">P2P Process Cases</div></div>
+      <div class="ctr-item fu" style="animation-delay:.3s"><div class="ctr-num"><span class="cnum" data-t="10">0</span><span class="ctr-plus">+</span></div><div class="ctr-label">SAP Configurations</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GAME -->
+<section id="game">
+  <div class="container">
+    <div class="sh fu">
+      <div class="section-label">// fun_interactive()</div>
+      <div class="sh-inner">
+        <h2 class="section-title">SAP <span>Game</span></h2>
+        <div class="sh-num">07</div>
+        <div class="sh-rule"></div>
+      </div>
+    </div>
+    <div class="game-wrap fu">
+      <p class="game-desc">🎮 Match SAP MM transactions with their descriptions! Flip the cards and test your SAP knowledge. Can you beat the clock?</p>
+      <div class="game-stats">
+        <div class="gs-block"><div class="gs-val" id="mv-c">0</div><div class="gs-lbl">Moves</div></div>
+        <div class="gs-block"><div class="gs-val" id="mt-c">0</div><div class="gs-lbl">Matches</div></div>
+        <div class="gs-block"><div class="gs-val" id="tm-c">0s</div><div class="gs-lbl">Time</div></div>
+      </div>
+      <div id="gmsg"></div>
+      <div id="mgrid"></div>
+      <button class="btn btn-p" onclick="initGame()"><i class="fas fa-rotate-right"></i> New Game</button>
+    </div>
+  </div>
+</section>
+
+<!-- HIRE BAND -->
+<div class="hire-band fu">
+  <div class="container">
+    <div class="hire-band-inner">
+      <div>
+        <h2>I'm <span>Available</span> for Freelancing</h2>
+        <p>Available for freelancing in SAP MM, with hands-on knowledge in procurement, inventory management, ABAP tools, and SAP S/4HANA MM processes. Let's build efficient SAP solutions together.</p>
+      </div>
+      <a href="mailto:hariharan2732004@gmail.com" class="btn btn-p" style="flex-shrink:0"><i class="fas fa-envelope"></i> Get In Touch</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="sh fu">
+      <div class="section-label">// lets_talk()</div>
+      <div class="sh-inner">
+        <h2 class="section-title">Con<span>tact</span></h2>
+        <div class="sh-num">08</div>
+        <div class="sh-rule"></div>
+      </div>
+      <p style="color:var(--gray);margin-top:14px;font-size:14px;max-width:500px">Have questions about SAP MM? Contact me anytime for consulting, configuration, or process support.</p>
+    </div>
+    <div class="con-grid">
+      <div class="fu">
+        <div class="con-info-items">
+          <div class="con-item"><div class="con-icon"><i class="fas fa-map-marker-alt"></i></div><div><div class="con-label">Address</div><span class="con-value">46/Kottaikulam, Pattukkottai, TN 614601</span></div></div>
+          <div class="con-item"><div class="con-icon"><i class="fas fa-phone"></i></div><div><div class="con-label">Phone</div><a href="tel:+917904158150" class="con-value">+91 7904158150</a></div></div>
+          <div class="con-item"><div class="con-icon"><i class="fas fa-envelope"></i></div><div><div class="con-label">Email</div><a href="mailto:hariharan2732004@gmail.com" class="con-value">hariharan2732004@gmail.com</a></div></div>
+          <div class="con-item"><div class="con-icon"><i class="fas fa-globe"></i></div><div><div class="con-label">Website</div><a href="https://hariharan2732004.github.io/Portfolio-1/" target="_blank" class="con-value">hariharan.in</a></div></div>
+        </div>
+        <div class="map-box"><iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3923.914681736177!2d79.30841607487741!3d10.428344989700037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTDCsDI1JzQyLjAiTiA3OcKwMTgnMzkuNiJF!5e0!3m2!1sen!2sin!4v1768072165326!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe></div>
+        <div class="con-socials">
+          <a href="https://www.linkedin.com/in/hariharan2732004/" target="_blank" class="sl"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://github.com/hariharan2732004" target="_blank" class="sl"><i class="fab fa-github"></i></a>
+          <a href="https://www.hackerrank.com/profile/hariharan2732004" target="_blank" class="sl"><i class="fab fa-hackerrank"></i></a>
+          <a href="https://wa.me/917904158150" target="_blank" class="sl"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="fu" style="animation-delay:.15s">
+        <div class="con-form-w">
+          <div class="con-form-header">SEND A MESSAGE</div>
+          <div class="con-form-body">
+            <form action="https://formspree.io/f/xpqqakaw" method="POST">
+              <div class="fg"><label>Your Name</label><input type="text" name="Name" placeholder="John Doe" required></div>
+              <div class="fg"><label>Email Address</label><input type="email" name="Email" placeholder="john@example.com" required></div>
+              <div class="fg"><label>Subject</label><input type="text" name="Subject" placeholder="SAP MM Consulting"></div>
+              <div class="fg"><label>Message</label><textarea name="Message" placeholder="Tell me about your project..." required></textarea></div>
+              <button type="submit" class="btn btn-p" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a class="footer-logo" href="#home">HARI<span>HARAN</span></a>
+      <p>© <script>document.write(new Date().getFullYear())</script> <span>Hariharan P</span>. All Rights Reserved.</p>
+      <div style="display:flex;gap:7px">
+        <a href="https://www.linkedin.com/in/hariharan2732004/" target="_blank" class="sl" style="height:34px;width:34px"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/hariharan2732004" target="_blank" class="sl" style="height:34px;width:34px"><i class="fab fa-github"></i></a>
+        <a href="https://wa.me/917904158150" target="_blank" class="sl" style="height:34px;width:34px"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="stt" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+<script>
+/* LOADER */
+window.addEventListener('load', () => {
+  const pct = document.querySelector('.ldr-pct');
+  let n = 0;
+  const t = setInterval(() => { n = Math.min(n + 2, 100); pct.textContent = n + '%'; if (n >= 100) clearInterval(t); }, 30);
+  setTimeout(() => {
+    document.getElementById('ldr').classList.add('hide');
+    setTimeout(() => { document.getElementById('ldr').style.display = 'none'; startScrollAnim(); }, 700);
+  }, 2000);
+});
+
+/* CURSOR */
+const cd = document.getElementById('cd'), co = document.getElementById('co');
+let mx = 0, my = 0, ox = 0, oy = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cd.style.left = mx + 'px'; cd.style.top = my + 'px';
+});
+(function animC() {
+  ox += (mx - ox) * 0.14; oy += (my - oy) * 0.14;
+  co.style.left = ox + 'px'; co.style.top = oy + 'px';
+  requestAnimationFrame(animC);
+})();
+document.querySelectorAll('a, button, .srv-card, .proj-card, .mc, .ctr-item, .tag').forEach(el => {
+  el.addEventListener('mouseenter', () => { cd.classList.add('hov'); co.classList.add('hov'); });
+  el.addEventListener('mouseleave', () => { cd.classList.remove('hov'); co.classList.remove('hov'); });
+});
+
+/* PROGRESS */
+window.addEventListener('scroll', () => {
+  const st = document.documentElement.scrollTop;
+  const sh = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('pb').style.width = (st / sh * 100) + '%';
+  document.getElementById('stt').classList.toggle('vis', st > 500);
+});
+
+/* TYPED */
+new Typed('#typed-el', {
+  strings: ['SAP MM Consultant', 'S/4HANA Specialist', 'P2P Process Expert', 'SAP Support Engineer'],
+  typeSpeed: 65, backSpeed: 40, backDelay: 2200, loop: true
+});
+
+/* NAV ACTIVE */
+window.addEventListener('scroll', () => {
+  const sy = window.pageYOffset;
+  document.querySelectorAll('section[id]').forEach(sec => {
+    const off = sec.offsetTop - 120, hgt = sec.offsetHeight, id = sec.getAttribute('id');
+    if (sy >= off && sy < off + hgt)
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+  });
+});
+function toggleNav() { document.getElementById('nvl').classList.toggle('open'); }
+function closeNav() { document.getElementById('nvl').classList.remove('open'); }
+
+/* SCROLL ANIMATIONS */
+let cAnim = false, sAnim = false;
+function startScrollAnim() {
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); }), { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+
+  const ctrObs = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting && !cAnim) {
+      cAnim = true;
+      document.querySelectorAll('.cnum').forEach(el => {
+        const target = parseInt(el.dataset.t); let c = 0; const inc = target / 55;
+        const tmr = setInterval(() => { c += inc; if (c >= target) { el.textContent = target; clearInterval(tmr); } else el.textContent = Math.floor(c); }, 22);
+      });
+    }
+  }), { threshold: 0.3 });
+  document.querySelectorAll('#counters').forEach(el => ctrObs.observe(el));
+
+  const skillObs = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting && !sAnim) {
+      sAnim = true;
+      setTimeout(() => { document.querySelectorAll('.skill-fill').forEach(b => { b.style.width = b.dataset.width + '%'; }); }, 300);
+    }
+  }), { threshold: 0.2 });
+  document.querySelectorAll('#skills').forEach(el => skillObs.observe(el));
+}
+
+/* GAME */
+const CARDS = [
+  { id: 1, icon: 'fa-file-lines', text: 'ME51N\nPurch. Req.' },
+  { id: 2, icon: 'fa-cart-shopping', text: 'ME21N\nPurch. Order' },
+  { id: 3, icon: 'fa-truck', text: 'MIGO\nGoods Receipt' },
+  { id: 4, icon: 'fa-file-invoice-dollar', text: 'MIRO\nInv. Verif.' },
+  { id: 5, icon: 'fa-boxes-stacked', text: 'MMBE\nStock Overview' },
+  { id: 6, icon: 'fa-users-gear', text: 'MK01\nVendor Master' },
+  { id: 7, icon: 'fa-database', text: 'MM01\nMaterial Master' },
+  { id: 8, icon: 'fa-warehouse', text: 'MB1A\nGoods Issue' }
+];
+let flipped = [], matched = 0, moves = 0, timer = null, secs = 0, canFlip = true;
+function shuffle(arr) { const a = [...arr, ...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function initGame() {
+  const grid = document.getElementById('mgrid');
+  grid.innerHTML = ''; flipped = []; matched = 0; moves = 0; secs = 0; canFlip = true;
+  ['mv-c','mt-c'].forEach(id => document.getElementById(id).textContent = '0');
+  document.getElementById('tm-c').textContent = '0s';
+  document.getElementById('gmsg').textContent = '';
+  clearInterval(timer); timer = null;
+  shuffle(CARDS).forEach(card => {
+    const el = document.createElement('div');
+    el.className = 'mc'; el.dataset.id = card.id;
+    el.innerHTML = `<div class="mc-front"></div><div class="mc-back"><i class="fas ${card.icon}"></i><span>${card.text.replace('\n','<br>')}</span></div>`;
+    el.addEventListener('click', () => flipCard(el));
+    grid.appendChild(el);
+  });
+}
+function flipCard(card) {
+  if (!canFlip || card.classList.contains('flipped') || card.classList.contains('matched') || flipped.length >= 2) return;
+  if (!timer && moves === 0) { timer = setInterval(() => { secs++; document.getElementById('tm-c').textContent = secs + 's'; }, 1000); }
+  card.classList.add('flipped'); flipped.push(card);
+  if (flipped.length === 2) {
+    canFlip = false; moves++; document.getElementById('mv-c').textContent = moves;
+    if (flipped[0].dataset.id === flipped[1].dataset.id) {
+      flipped.forEach(c => c.classList.add('matched'));
+      matched++; document.getElementById('mt-c').textContent = matched;
+      flipped = []; canFlip = true;
+      if (matched === 8) { clearInterval(timer); const r = moves <= 12 ? '🏆 SAP LEGEND!' : moves <= 18 ? '🎉 SAP EXPERT!' : '✅ MISSION COMPLETE!'; document.getElementById('gmsg').textContent = `${r} ${moves} moves · ${secs}s`; }
+    } else { setTimeout(() => { flipped.forEach(c => c.classList.remove('flipped')); flipped = []; canFlip = true; }, 1050); }
+  }
+}
+initGame();
+</script>
+</body>
+</html>
